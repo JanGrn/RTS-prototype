@@ -5,9 +5,12 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
+/// <summary>
+/// 
+/// </summary>
 public class MainBuilding : Building {
     private Vector3 mainBuildingSize;
-    private float spawnDistance = 1.0f;
+    private float spawnDistance = 0.3f;
 
 
     private Button LightUnitButton;
@@ -50,6 +53,10 @@ public class MainBuilding : Building {
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
     private void buildUnit(int type) {
         switch (type) {
             case 0: buildLightUnit(); break;
@@ -60,31 +67,47 @@ public class MainBuilding : Building {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator buildLightUnit() {
         yield return new WaitForSeconds(lightUnitBuildTime);
         GameObject unit = Resources.Load<GameObject>("Prefabs/Units/Light Unit");
         // From what I understand, this should also allow me to load a prefab:
         // Instantiate(Addressables.LoadAssetAsync<GameObject>("Prefabs/Units/Light Unit").Result, new Vector3(0, 0, 0), Quaternion.identity);
         if (unit != null) {
-            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(unit, new Vector3(spawnDistance + mainBuildingSize.x / 2, unit.GetComponent<Collider>().bounds.size.y / 2, 0), Quaternion.identity);
         } else {
             Debug.LogError("Light unit not found in Resources folder");
         }
         
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator buildMediumUnit() {
         yield return new WaitForSeconds(mediumUnitBuildTime);
         GameObject unit = Resources.Load<GameObject>("Prefabs/Units/Medium Unit");
         Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator buildHeavyUnit() {
         yield return new WaitForSeconds(heavyUnitBuildTime);
         GameObject unit = Resources.Load<GameObject>("Prefabs/Units/Heavy Unit");
         Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator buildRangedUnit() {
         yield return new WaitForSeconds(rangedUnitBuildTime);
         GameObject unit = Resources.Load<GameObject>("Prefabs/Units/Ranged Unit");

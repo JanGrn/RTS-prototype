@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void HandleSelection() {
         var ray = m_camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
