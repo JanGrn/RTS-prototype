@@ -31,7 +31,7 @@ public class SettingsManager : MonoBehaviour {
     }
 
     public void SaveSettings(bool speedUp, bool difficultyUp, bool varietyUp) {
-        var data = new SettingsData { GameSpeedUp=speedUp, GameDifficultyUp=difficultyUp, GameVarietyUp=varietyUp };
+        var data = new SettingsData { GameSpeedUp = speedUp, GameDifficultyUp = difficultyUp, GameVarietyUp = varietyUp };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(jsonSettingsPath, json);
     }
@@ -44,8 +44,8 @@ public class SettingsManager : MonoBehaviour {
             GameDifficultyUp = data.GameDifficultyUp;
             GameVarietyUp = data.GameVarietyUp;
         } else {
-            GameSpeedUp = false; 
-            GameDifficultyUp = false; 
+            GameSpeedUp = false;
+            GameDifficultyUp = false;
             GameVarietyUp = false;
         }
     }

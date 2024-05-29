@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TitleMenuUIHandler : MonoBehaviour {
+    // Title canvas elements
     private GameObject TitleCanvas;
     private Button StartButton;
     private Button ExitButton;
     private Button SettingsButton;
 
+    // Settings canvas elements
     private GameObject SettingsCanvas;
     private Button ExitSettingsButton;
     private Toggle GameSpeedUpToggle;
@@ -23,10 +25,20 @@ public class TitleMenuUIHandler : MonoBehaviour {
         // Load settings from a previous run
         SettingsManager.Instance.LoadSettings();
 
-        // Load title and settings canvasses and initialize button functionality
+        initTitleCanvasFunctionality();
+        initSettingsCanvasFunctionality();
+
+
+
+        // SettingsCanvas.gameObject.SetActive(true);
+        // StartCoroutine(TestActivationAndDeactivation());
+        // StartButton.onClick.AddListener(testAction);
+    }
+
+    private void initTitleCanvasFunctionality() {
         TitleCanvas = GameObject.Find("Title Canvas");
         SettingsCanvas = GameObject.Find("Settings Canvas");
-        
+
         StartButton = GameObject.Find("Start Button").GetComponent<Button>();
         StartButton.onClick.AddListener(() => {
             SceneManager.LoadScene(1);
@@ -34,11 +46,11 @@ public class TitleMenuUIHandler : MonoBehaviour {
 
         ExitButton = GameObject.Find("Exit Button").GetComponent<Button>();
         ExitButton.onClick.AddListener(() => {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
-        #else
+#else
             Application.Quit();
-        #endif
+#endif
         });
 
         SettingsButton = GameObject.Find("Settings Button").GetComponent<Button>();
@@ -46,9 +58,9 @@ public class TitleMenuUIHandler : MonoBehaviour {
             TitleCanvas.SetActive(false);
             SettingsCanvas.SetActive(true);
         });
+    }
 
-
-        // Initialize functionality for settings UI
+    private void initSettingsCanvasFunctionality() {
         SettingsCanvas.SetActive(true);
         GameSpeedUpToggle = GameObject.Find("Game Speed Up Toggle").GetComponent<Toggle>();
         GameSpeedUpToggle.isOn = SettingsManager.Instance.GameSpeedUp;
@@ -68,10 +80,6 @@ public class TitleMenuUIHandler : MonoBehaviour {
             SettingsManager.Instance.SaveSettings(GameSpeedUpToggle.isOn, GameDifficultyUpToggle.isOn, GameVarietyUpToggle.isOn);
         });
         SettingsCanvas.SetActive(false);
-
-        // SettingsCanvas.gameObject.SetActive(true);
-        // StartCoroutine(TestActivationAndDeactivation());
-        // StartButton.onClick.AddListener(testAction);
     }
 
     private IEnumerator TestActivationAndDeactivation() {
