@@ -7,6 +7,7 @@ public class GameStateManager : MonoBehaviour
 {
     public float GoldAccumulationRate = 1.0f;
     public float Gold = 0.0f;
+    public List<Unit> PlayerUnits = new ();
 
     private TMP_Text goldDisplayText;
 

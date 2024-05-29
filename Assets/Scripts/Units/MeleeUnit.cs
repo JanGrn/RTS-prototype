@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeUnit : MonoBehaviour
+public class MeleeUnit : Unit
 {
     // Start is called before the first frame update
     void Start()
